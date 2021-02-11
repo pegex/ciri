@@ -96,6 +96,7 @@ def test_subschema_as_none():
     schema = Root()
     assert schema.serialize({'node': None}) == {'node': None}
 
+
 def test_subschema_deserialize_as_none():
     class Node(Schema):
         pass
@@ -106,6 +107,29 @@ def test_subschema_deserialize_as_none():
 
     schema = Root()
     assert schema.deserialize({'node': None}) == Root(node=None)
+
+
+def test_required_not_allow_none():
+    class Node(Schema):
+        class Meta:
+            options = SchemaOptions(allow_none=True)
+        label = String(required=True, allow_none=False)
+        category = String()
+
+    schema = Node()
+    assert schema.serialize({'label': 'test', 'category': None}) == {'label': 'test', 'category': None}
+
+
+def test_required_allow_none():
+    class Node(Schema):
+        class Meta:
+            options = SchemaOptions(allow_none=True)
+        label = String(required=True)
+        category = String()
+
+    schema = Node()
+    assert schema.serialize({'label': None, 'category': None}) == {'label': None, 'category': None}
+
 
 def test_subrecursive_serialize_self():
 

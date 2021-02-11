@@ -20,6 +20,7 @@
   * Fixed issue with None being default-allowed in subschemas, updated tests
   * Added benchmark test
   * Fixed serialize callable for name change
+  * Fixed schema field inheriting allow_none/output_missing from previous field
 
 
 # 0.6.0

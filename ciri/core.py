@@ -472,9 +472,6 @@ class Schema(AbstractSchema, metaclass=ABCSchema):
         do_deserialize=False,
         do_serialize=False
     ):
-        output_missing = self._config.output_missing
-        allow_none = self._config.allow_none
-
         if do_validate:
             self._error_handler.reset()
 
@@ -501,6 +498,8 @@ class Schema(AbstractSchema, metaclass=ABCSchema):
         for key in elements:
             if key in exclude:
                 continue
+            output_missing = self._config.output_missing
+            allow_none = self._config.allow_none
 
             field = self._fields[key]
 
